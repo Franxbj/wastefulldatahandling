@@ -152,25 +152,24 @@ def count_total_grades():
 def display_course_summary():
     students = load_students()
 
-    all_courses = []
+    #dictionary to store each course and its grade count
+    course_counts = {}
 
-    # Inefficient: builds a course list using repeated membership checks
+    # single loop through all students and grades
     for student in students:
         for grade in student["grades"]:
-            if grade["course"] not in all_courses:
-                all_courses.append(grade["course"])
+            course = grade["course"]
+            # if course is new, add it to the dictionary with a count of 0
+            if course not in course_counts:
+                course_counts[course] = 0
+            # increment the count for this course
+            course_counts[course] += 1
 
     print("Course summary:")
 
-    # Inefficient: nested loops repeatedly scan all students and grades
-    for course in all_courses:
-        count = 0
-
-        for student in students:
-            for grade in student["grades"]:
-                if grade["course"] == course:
-                    count += 1
-
+    # loop through the dictionary and print each course and its count
+    for course, count in course_counts.items():
+        
         print(f"{course}: {count} grade(s)")
 
 

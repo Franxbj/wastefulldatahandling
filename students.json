@@ -24,5 +24,20 @@
                 "grade": "3"
             }
         ]
+    },
+    {
+        "student_number": "1222",
+        "name": "Jaana Dean",
+        "contact": "0421121121",
+        "grades": [
+            {
+                "course": "Robotics",
+                "grade": "5"
+            },
+            {
+                "course": "UX Design",
+                "grade": "1"
+            }
+        ]
     }
 ]
