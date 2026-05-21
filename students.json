@@ -3,6 +3,26 @@
         "student_number": "1",
         "name": "Zoe",
         "contact": "1234",
-        "grades": []
+        "grades": [
+            {
+                "course": "Pyhton 101",
+                "grade": "4"
+            },
+            {
+                "course": "Robotics",
+                "grade": "5"
+            }
+        ]
+    },
+    {
+        "student_number": "1221",
+        "name": "Philip Ryan",
+        "contact": "0412322212",
+        "grades": [
+            {
+                "course": "Robotics",
+                "grade": "3"
+            }
+        ]
     }
 ]
