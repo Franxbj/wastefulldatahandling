@@ -126,10 +126,11 @@ def display_all_students():
 
     print("All students:")
 
-    for i in range(len(students)):
-        sorted_students = sorted(students, key=lambda student: student["name"])
-        student = sorted_students[i]
+    # sort the list once before looping
+    sorted_students = sorted(students, key=lambda student: student["name"])
 
+    # loop over the already sorted list
+    for student in sorted_students:
         print(f"Student Number: {student['student_number']}")
         print(f"Name: {student['name']}")
         print(f"Contact: {student['contact']}")
