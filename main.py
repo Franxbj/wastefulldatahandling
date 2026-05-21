@@ -47,6 +47,7 @@ def add_student():
     for student in students:
         if student["student_number"] == student_number:
             duplicate_found = True
+            break # stop looping once duplicate is found
 
     if duplicate_found:
         print("Student number already exists.")
