@@ -47,6 +47,7 @@ def add_student():
     for student in students:
         if student["student_number"] == student_number:
             duplicate_found = True
+            break # stop looping once duplicate is found
 
     if duplicate_found:
         print("Student number already exists.")
@@ -74,13 +75,14 @@ def add_grade():
 
     student_found = False
 
-    for a student in students:
+    for student in students:
         if student["student_number"] == student_number:
             student["grades"].append({
                 "course": course,
                 "grade": grade
             })
             student_found = True
+            break
 
     if student_found:
         save_students(students)
@@ -125,10 +127,11 @@ def display_all_students():
 
     print("All students:")
 
-    for i in range(len(students)):
-        sorted_students = sorted(students, key=lambda student: student["name"])
-        student = sorted_students[i]
+    # sort the list once before looping
+    sorted_students = sorted(students, key=lambda student: student["name"])
 
+    # loop over the already sorted list
+    for student in sorted_students:
         print(f"Student Number: {student['student_number']}")
         print(f"Name: {student['name']}")
         print(f"Contact: {student['contact']}")
@@ -141,12 +144,7 @@ def count_total_grades():
 
     total = 0
 
-    copied_students = []
-
     for student in students:
-        copied_students.append(student)
-
-    for student in copied_students:
         for grade in student["grades"]:
             total += 1
 
@@ -156,36 +154,33 @@ def count_total_grades():
 def display_course_summary():
     students = load_students()
 
-    all_courses = []
+    #dictionary to store each course and its grade count
+    course_counts = {}
 
-    # Inefficient: builds a course list using repeated membership checks
+    # single loop through all students and grades
     for student in students:
         for grade in student["grades"]:
-            if grade["course"] not in all_courses:
-                all_courses.append(grade["course"])
+            course = grade["course"]
+            # if course is new, add it to the dictionary with a count of 0
+            if course not in course_counts:
+                course_counts[course] = 0
+            # increment the count for this course
+            course_counts[course] += 1
 
     print("Course summary:")
 
-    # Inefficient: nested loops repeatedly scan all students and grades
-    for course in all_courses:
-        count = 0
-
-        for student in students:
-            for grade in student["grades"]:
-                if grade["course"] == course:
-                    count += 1
-
+    # loop through the dictionary and print each course and its count
+    for course, count in course_counts.items():
+        
         print(f"{course}: {count} grade(s)")
 
 
 def save_backup():
     students = load_students()
 
-    json_text = json.dumps(students)
-    copied_students = json.loads(json_text)
-
+    # write directly to file without unnecessary serilization
     with open("students_backup.json", "w") as file:
-        json.dump(copied_students, file, indent=4)
+        json.dump(students, file, indent=4)
 
     print("Backup saved.")
 

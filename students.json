@@ -1,0 +1,60 @@
+[
+    {
+        "student_number": "1",
+        "name": "Zoe",
+        "contact": "1234",
+        "grades": [
+            {
+                "course": "Pyhton 101",
+                "grade": "4"
+            },
+            {
+                "course": "Robotics",
+                "grade": "5"
+            }
+        ]
+    },
+    {
+        "student_number": "1221",
+        "name": "Philip Ryan",
+        "contact": "0412322212",
+        "grades": [
+            {
+                "course": "Robotics",
+                "grade": "3"
+            }
+        ]
+    },
+    {
+        "student_number": "1222",
+        "name": "Jaana Dean",
+        "contact": "0421121121",
+        "grades": [
+            {
+                "course": "Robotics",
+                "grade": "5"
+            },
+            {
+                "course": "UX Design",
+                "grade": "1"
+            }
+        ]
+    },
+    {
+        "student_number": "Bridget Allen",
+        "name": "1223",
+        "contact": "0244231121",
+        "grades": []
+    },
+    {
+        "student_number": "1224",
+        "name": "Helen Doe",
+        "contact": "043212121",
+        "grades": [
+            {
+                "course": "Introduction to Java",
+                "grade": "4"
+            }
+        ]
+    }
+]
