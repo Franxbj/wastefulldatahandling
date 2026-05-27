@@ -2,29 +2,35 @@ import json
 import os
 import time
 
+# file where all student data is stored
 DATA_FILE = "students.json"
 
 
 def create_data_file_if_missing():
+    # check if the data file exists, if not create an empty one
     if not os.path.exists(DATA_FILE):
         with open(DATA_FILE, "w") as file:
             json.dump([], file)
 
 
 def load_students():
+    # open the data file and return all students as a list
     with open(DATA_FILE, "r") as file:
         return json.load(file)
 
 
 def save_students(students):
+    # write the updated student list back to the data file
     with open(DATA_FILE, "w") as file:
         json.dump(students, file, indent=4)
 
 
 def login():
+    # hardcoded credentials for simplicity
     username = "admin"
     password = "password"
 
+    # keep asking until correct credentials are entered
     while True:
         given_username = input("Enter username: ")
         given_password = input("Enter password: ")
@@ -37,12 +43,15 @@ def login():
 
 
 def add_student():
+    # get new student details from user
     student_number = input("Enter student number: ")
     name = input("Enter student name: ")
     contact = input("Enter student contact information: ")
 
+    # load existing students from file
     students = load_students()
 
+    # check if student number already exists
     duplicate_found = False
     for student in students:
         if student["student_number"] == student_number:
@@ -53,6 +62,7 @@ def add_student():
         print("Student number already exists.")
         return
 
+    # create a new student record with an empty grades list
     new_student = {
         "student_number": student_number,
         "name": name,
@@ -60,6 +70,7 @@ def add_student():
         "grades": []
     }
 
+    # add the new student and save to file
     students.append(new_student)
     save_students(students)
 
@@ -67,14 +78,17 @@ def add_student():
 
 
 def add_grade():
+    # get grade details from user
     student_number = input("Enter student number: ")
     course = input("Enter course name: ")
     grade = input("Enter grade: ")
 
+    # load existing students from file
     students = load_students()
 
     student_found = False
 
+    # find the student and append the new grade
     for student in students:
         if student["student_number"] == student_number:
             student["grades"].append({
@@ -82,7 +96,7 @@ def add_grade():
                 "grade": grade
             })
             student_found = True
-            break
+            break # stop looping once student is found
 
     if student_found:
         save_students(students)
@@ -94,17 +108,21 @@ def add_grade():
 def search_student():
     student_number = input("Enter student number to search for: ")
 
+    # start timer to measure search performance
     start_time = time.perf_counter()
 
+    # load existing students from file
     students = load_students()
 
     found_student = None
 
+    # search for the student by student number
     for student in students:
         if student["student_number"] == student_number:
             found_student = student
             break # stop looping once a student is found
 
+    # stop timer
     end_time = time.perf_counter()
 
     if found_student:
@@ -116,10 +134,12 @@ def search_student():
     else:
         print("Student not found.")
 
+    # display how long the search took
     print(f"Search took {end_time - start_time:.6f} seconds.")
 
 
 def display_all_students():
+    # load existing students from file
     students = load_students()
 
     if not students:
@@ -141,10 +161,12 @@ def display_all_students():
 
 
 def count_total_grades():
+    # load existing students from file
     students = load_students()
 
     total = 0
 
+    # count all grades across all students
     for student in students:
         for grade in student["grades"]:
             total += 1
@@ -153,6 +175,7 @@ def count_total_grades():
 
 
 def display_course_summary():
+    # load existing students from file
     students = load_students()
 
     #dictionary to store each course and its grade count
@@ -177,6 +200,7 @@ def display_course_summary():
 
 
 def save_backup():
+    # load existing students from file
     students = load_students()
 
     # write directly to file without unnecessary serilization
@@ -187,9 +211,13 @@ def save_backup():
 
 
 def main():
+     # create the data file if it doesn't exist
     create_data_file_if_missing()
+
+    # prompt user to login before accessing the system
     login()
 
+    # main menu loop
     while True:
         print("\nSelect an action:")
         print("1. Add a student")
